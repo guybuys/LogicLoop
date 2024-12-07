@@ -1,7 +1,4 @@
 # LogicLoop
-Use PLC style inputs, outputs and timers in Arduino
-*Gebruik ingangen, uitgangen en timers zoals in een PLC in je Arduino*
-
 ## _Library Documentatie_
 
 ## Overzicht
@@ -85,6 +82,31 @@ void setOutput(Output* output);
 - `processInput(bool input)`: Verwerkt de ingangswaarde van de timer *(nodig wanneer er geen Input object gekoppeld is aan de timer)*.
 - `setInput(Input* input)`: Koppelt een Input object aan de timer.
 - `setOutput(Output* output)`: Koppelt een Output object aan de timer.
+
+### Counter Klasse
+De Counter klasse vertegenwoordigt een teller die kan worden gebruikt om gebeurtenissen te tellen en te controleren of een vooraf ingestelde waarde is bereikt.
+
+
+#### Constructor:
+```cpp
+Counter(int preset);
+```
+#### Methoden:
+```cpp
+void increment();
+void decrement();
+int getCount();
+void reset();
+void setPreset(int preset);
+bool isPresetReached();
+```
+- `increment()`: Verhoogt de teller met één.
+- `decrement()`: Verlaagt de teller met één.
+- `getCount()`: Retourneert de huidige waarde van de teller.
+- `reset()`: Reset de teller naar nul.
+- `setPreset(int preset)`: Stelt de vooraf ingestelde waarde van de teller in.
+- `isPresetReached()`: Controleert of de teller de vooraf ingestelde waarde heeft bereikt.
+
 
 ### PLC Klasse
 De `PLC` klasse beheert de inputs, outputs en timers.
@@ -200,14 +222,19 @@ void loop() {
 }
 ```
 
-## Opmerkingen over de code
+## Addendum
 - De library maakt gebruik van een eenvoudige vector-implementatie (`SimpleVector`) om afhankelijkheden van externe libraries te vermijden.
 - Alle klassen beschikken over de methode `update()`. Deze werd echter bewust enkel vernoemd bij de `PLC` klasse omdat de gebruiker niet verondersteld wordt de `update()` methode voor de andere klassen op te roepen. Dit gebeurd immers automatisch in de `update()` methode van de `PLC` klasse wanneer de ojecten aan het `PLC` object gekoppeld werden. Het is echter perfect mogelijk om `Input`, `Output` of `Timer` objecten te gebruiken zonder een `PLC` object. In dat geval moet de `update()` methode van ieder object apart aangeroepen worden.
-- Wishlist:
+- **Compacte I/O Leesmethoden** voor visualisatie via USB poort (momenteel enkel voor MDUINO_21_PLUS):
+    - uint32_t readIOsCompact(): Leest de status van de inputs en outputs in een compacte vorm.
+    - uint8_t readOutputsCompact(): Leest de status van de outputs in een compacte vorm.
+    - uint16_t readInputsCompact(): Leest de status van de inputs in een compacte vorm.
+- Er zijn in de PLC klasse tools voorzien om de processortijd op te kunnen volgen:
+    - `unsigned long getAverageExecutionTime()`: Retourneert de gemiddelde uitvoeringstijd van de scan-cyclus.
+    - `unsigned long getWorstCaseExecutionTime()`: Retourneert de slechtste uitvoeringstijd van de scan-cyclus.
+    - `void resetWorstCaseExecutionTime()`: Reset de slechtste uitvoeringstijd.
+    - `bool isHealthy()`: Geeft `true` terug indien de gemiddelde uitvoeringstijd onder 75% van de scan-cyclus blijft.
+- Wishlist voor nieuw features:
     - Function overloading gebruiken voor met setState van een output om zowel met bool als ON/OFF/SLOW/FAST/LONG parameters mee te geven als dit duidelijk is voor de gebruikers
     - Knipper en long tijd instelbaar maken met public method
 
-
-## License
-
-MIT
