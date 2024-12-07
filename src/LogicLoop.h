@@ -148,6 +148,13 @@ public:
     unsigned long getWorstCaseExecutionTime();
     void resetWorstCaseExecutionTime();
     bool isHealthy();
+
+#if defined(MDUINO_21_PLUS)
+    uint32_t readIOsCompact();
+    uint8_t readOutputsCompact();
+    uint16_t readInputsCompact();
+#endif
+
 };
 
 #endif

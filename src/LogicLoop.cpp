@@ -360,3 +360,46 @@ bool PLC::isHealthy() {
     }
     return false;
 }
+
+#if defined(MDUINO_21_PLUS)
+uint16_t PLC::readInputsCompact() {
+    uint16_t inputs = 0;
+
+    // Lees PORTA (bits 0-4)
+    inputs |= (PINA & 0x1F) << 0; // Bits 0-4
+
+    // Lees PORTD (bits 2-3)
+    inputs |= ((PIND & 0x0C) >> 2) << 5; // Bits 5-6
+
+    // Lees PORTF (bits 0-5)
+    inputs |= (PINF & 0x3F) << 7; // Bits 7-12
+
+    return inputs;
+}
+
+uint8_t PLC::readOutputsCompact() {
+    uint8_t outputStates = 0;
+
+    // Lees de eerste 5 bits van PORTC (Q0_0 tot Q0_4)
+    outputStates |= (PORTC & 0b00011111);
+
+    // Lees de laatste 3 bits van PORTD (Q0_5 tot Q0_7)
+    outputStates |= (PORTD & 0b11100000);
+
+    return outputStates;
+}
+
+uint32_t PLC::readIOsCompact() {
+    // Lees de status van outputs en inputs
+    uint8_t outputStates = this->readOutputsCompact();
+    uint16_t inputStates = this->readInputsCompact();
+
+    // Combineer de waarden in een 32-bit variabele
+    uint32_t ioStates = 0;
+    ioStates |= (uint32_t)outputStates;         // Voeg outputs toe (bits 0–7)
+    ioStates |= ((uint32_t)inputStates << 8);  // Voeg inputs toe (bits 8–23)
+
+    return ioStates;
+}
+
+#endif
