@@ -94,17 +94,23 @@ Counter(int preset);
 #### Methoden:
 ```cpp
 void increment();
+void increment(bool condition);
 void decrement();
-int getCount();
+void decrement(bool condition);
 void reset();
+void reset(bool condition);
+int getCount();
 void setPreset(int preset);
 bool isPresetReached();
 bool isZero();
 ```
 - `increment()`: Verhoogt de teller met één.
+- `increment(bool condition)`: Verhoogt de teller met één wanneer de `condition` hoog is terwijl hij voordien laag was.
 - `decrement()`: Verlaagt de teller met één.
-- `getCount()`: Retourneert de huidige waarde van de teller.
+- `decrement(bool condition)`: Verlaagt de teller met één  wanneer de `condition` hoog is terwijl hij voordien laag was.
 - `reset()`: Reset de teller naar nul.
+- `reset(bool condition)`: Reset de teller naar nul  wanneer de `condition` hoog is terwijl hij voordien laag was.
+- `getCount()`: Retourneert de huidige waarde van de teller.
 - `setPreset(int preset)`: Stelt de vooraf ingestelde waarde van de teller in.
 - `isPresetReached()`: Controleert of de teller de vooraf ingestelde waarde heeft bereikt.
 - `isZero()`: Controleert of de teller op nul staat.

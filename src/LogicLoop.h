@@ -104,18 +104,28 @@ private:
     int _preset;
     bool _reset;
     bool _prevReset;
+    bool _prevIncrement;
+    bool _prevDecrement;
 
 public:
     Counter(int preset);
     ~Counter();
 
     void increment();
+    void increment(bool condition);
     void decrement();
-    int getCount();
+    void decrement(bool condition);
     void reset();
+    void reset(bool condition);
+    int getCount();
     void setPreset(int preset);
     bool isPresetReached();
     bool isZero();
+
+    void incrementOnCondition(bool condition);
+    void decrementOnCondition(bool condition);
+    void resetOnCondition(bool condition);
+
 };
 
 class PLC {

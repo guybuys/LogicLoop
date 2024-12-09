@@ -250,16 +250,37 @@ void Counter::increment() {
     _count++;
 }
 
+void Counter::increment(bool condition) {
+    if (condition && !_prevIncrement) {
+        _count++;
+    }
+    _prevIncrement = condition;
+}
+
 void Counter::decrement() {
     _count--;
 }
 
-int Counter::getCount() {
-    return _count;
+void Counter::decrement(bool condition) {
+    if (condition && !_prevDecrement) {
+        _count--;
+    }
+    _prevDecrement = condition;
 }
 
 void Counter::reset() {
     _count = 0;
+}
+
+void Counter::reset(bool condition) {
+    if (condition && !_prevReset) {
+        _count = 0;
+    }
+    _prevReset = condition;
+}
+
+int Counter::getCount() {
+    return _count;
 }
 
 void Counter::setPreset(int preset) {

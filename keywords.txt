@@ -5,6 +5,8 @@ Counter	KEYWORD1
 PLC	KEYWORD1
 getState	KEYWORD2
 setState	KEYWORD2
+isRising    KEYWORD2
+isFalling   KEYWORD2
 update	KEYWORD2
 increment	KEYWORD2
 decrement	KEYWORD2
