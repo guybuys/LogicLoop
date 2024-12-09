@@ -115,6 +115,7 @@ public:
     void reset();
     void setPreset(int preset);
     bool isPresetReached();
+    bool isZero();
 };
 
 class PLC {

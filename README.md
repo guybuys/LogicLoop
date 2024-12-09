@@ -99,6 +99,7 @@ int getCount();
 void reset();
 void setPreset(int preset);
 bool isPresetReached();
+bool isZero();
 ```
 - `increment()`: Verhoogt de teller met één.
 - `decrement()`: Verlaagt de teller met één.
@@ -106,6 +107,7 @@ bool isPresetReached();
 - `reset()`: Reset de teller naar nul.
 - `setPreset(int preset)`: Stelt de vooraf ingestelde waarde van de teller in.
 - `isPresetReached()`: Controleert of de teller de vooraf ingestelde waarde heeft bereikt.
+- `isZero()`: Controleert of de teller op nul staat.
 
 
 ### PLC Klasse

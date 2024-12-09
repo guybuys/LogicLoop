@@ -270,6 +270,10 @@ bool Counter::isPresetReached() {
     return _count >= _preset;
 }
 
+bool Counter::isZero() {
+    return _count == 0;
+}
+
 // PLC Klasse Implementatie
 PLC::PLC(unsigned long scanCycleInterval) 
     : _scanCycleInterval(scanCycleInterval),
